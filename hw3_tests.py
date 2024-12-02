@@ -2,6 +2,8 @@ import data
 import build_data
 import unittest
 
+import hw3
+from hw3 import filter_by_state
 
 # These two values are defined to support testing below. The
 # data within these structures should not be modified. Doing
@@ -180,27 +182,103 @@ class TestCases(unittest.TestCase):
 
     # Part 1
     # test population_total
+    def test_population_total(self):
+        expected = 655813
+        result = hw3.population_total(reduced_data)
+        self.assertEqual(expected, result)
 
     # Part 2
     # test filter_by_state
+    def test_filter_by_state(self):
+        state = filter_by_state(reduced_data, 'CA')
+        expected = ['San Luis Obispo County', 'Yolo County']
+        result = hw3.filter_by_state(reduced_data, 'CA')
+        result_county = [county.county for county in result]
+        self.assertEqual(expected, result_county)
 
     # Part 3
     # test population_by_education
+    def test_population_by_education(self):
+        expected = 87911.145
+        result = hw3.population_by_education([reduced_data[2]], "Bachelor's Degree or Higher")
+        self.assertEqual(expected, result)
+
+
     # test population_by_ethnicity
+    def test_population_by_ethnicity(self):
+        expected = 9488.822
+        result = hw3.population_by_ethnicity([reduced_data[2]], "Two or More Races")
+        self.assertEqual(expected, result)
+
+
     # test population_below_poverty_level
+    def test_population_below_poverty_level(self):
+        expected = 39908.869
+        result = hw3.population_below_poverty_level([reduced_data[2]])
+        self.assertAlmostEqual(expected, result)
 
     # Part 4
     # test percent_by_education
+    def test_percent_by_education(self):
+        expected = 31.5
+        result = hw3.percent_by_education([reduced_data[2]], "Bachelor's Degree or Higher")
+        self.assertEqual(expected, result)
+
     # test percent_by_ethnicity
+    def test_percent_by_ethnicity(self):
+        expected = 3.4
+        result = hw3.percent_by_ethnicity([reduced_data[2]], "Two or More Races")
+        self.assertAlmostEqual(expected, result)
+
     # test percent_below_poverty_level
+    def test_percent_below_poverty_level(self):
+        expected = 14.3
+        result = hw3.percent_below_poverty_level([reduced_data[2]])
+        self.assertEqual(expected, result)
+
 
     # Part 5
     # test education_greater_than
+    def test_education_greater_than(self):
+        expected = [reduced_data[2], reduced_data[3]]
+        result = hw3.education_greater_than(reduced_data, "Bachelor's Degree or Higher", 30)
+        self.assertEqual(expected, result)
+
+
+
     # test education_less_than
+    def test_education_less_than(self):
+        expected = [reduced_data[1], reduced_data[4], reduced_data[5], reduced_data[6]]
+        result = hw3.education_less_than(reduced_data, "Bachelor's Degree or Higher", 20)
+        self.assertEqual(expected, result)
+
+
     # test ethnicity_greater_than
+    def test_ethnicity_greater_than(self):
+        expected = [reduced_data[2], reduced_data[3]]
+        result = hw3.ethnicity_greater_than(reduced_data, 'Hispanic or Latino', 10.0)
+        self.assertEqual(expected, result)
+
+
     # test ethnicity_less_than
+    def test_ethnicity_less_than(self):
+        expected = [reduced_data[0], reduced_data[1], reduced_data[4], reduced_data[5], reduced_data[6]]
+        result = hw3.ethnicity_less_than(reduced_data, 'Hispanic or Latino', 10.0)
+        self.assertEqual(expected, result)
+
+
     # test below_poverty_level_greater_than
+    def test_below_poverty_level_greater_than(self):
+        expected = [reduced_data[1], reduced_data[3], reduced_data[4], reduced_data[5]]
+        result = hw3.below_poverty_level_greater_than(reduced_data, 15.0)
+        self.assertEqual(expected, result)
+
+
     # test below_poverty_level_less_than
+    def test_below_poverty_level_less_than(self):
+        expected = [reduced_data[0], reduced_data[2], reduced_data[6]]
+        result = hw3.below_poverty_level_less_than(reduced_data, 15.0)
+        self.assertEqual(expected, result)
 
 
 
